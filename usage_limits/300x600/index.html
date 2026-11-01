@@ -102,6 +102,7 @@
             display: flex;
             align-items: center;
             z-index: 2;
+            overflow:visible;
         }
         .cta::before {
             content: "";
@@ -112,6 +113,7 @@
             filter: blur(10px);
             inset: -2px -4px;
             opacity: var(--glow-opacity, 0);
+            transform: translateZ(0);
         }
         .cta-text {
             background-color: #fff;
@@ -196,21 +198,13 @@
             duration: 0.3,
             overwrite: "auto"
             });
-            // gsap.to(".cta", {
-            //     "--glow-opacity": 0,
-            //     scale: 1,
-            //     duration: 0.5,
-            //     delay: 0.5,
-            //     overwrite: "auto"
-            // });
-        //     // Animate bounce effect on CTA
-        //     const ctaTl = gsap.timeline();
-        //     ctaTl.to(".cta", { duration: 0.5, scale: 1.05, yoyo: true, repeat: 1, boxShadow: "rgba(52, 107, 240, 0.6) 0px 0px 10px 2px, rgba(78, 160, 255, 0.4) 0px 0px 20px 5px", ease: "cubic-bezier(0.4, 0, 0.2, 1)"})
-
-        //     // Restart text animation after CTA animation
-        //     setTimeout(() => {
-        //         tl.restart();
-        //     }, 500);
+            gsap.to(".cta", {
+                "--glow-opacity": 0,
+                scale: 1,
+                duration: 0.5,
+                delay: 0.5,
+                overwrite: "auto"
+            });
         });
 
         document.querySelector(".link").addEventListener("click", () => {
