@@ -89,10 +89,19 @@
             overflow: hidden;
             background: #000;
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .main-img-a,
         .main-img-b {
             width: 150px;
+        }
+        .main-img-a {
+            margin-right: -3px;
+        }
+        .main-img-b {
+            margin-left: -3px;
         }
         .cta {
             display: flex;
@@ -151,7 +160,9 @@
             </div>
         </div>
         <div class="main-img">
-            <img src="assets/main-img.png" alt="">
+            <!-- <img src="assets/main-img.png" alt=""> -->
+            <img src="assets/img-a.png" alt="" class="main-img-a">
+            <img src="assets/img-b.png" alt="" class="main-img-b">
         </div>
         <div class="cta">
             <div class="cta-text">Dapatkan akses Nano Banana Pro </br> dan maksimalkan kreasi visualmu!</div>
@@ -181,7 +192,8 @@
         })
         .from(".cta", { duration: 0.3, opacity: 0,scale: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
         .to(".cta", { duration: 0.3, opacity: 1, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
-        .from(".main-img", { duration: 0.3, y: 50, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .from(".main-img-a", { duration: 0.3, y: 50, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .from(".main-img-b", { duration: 0.3, x: -50, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.2")
         ;
 
         tl.play();
