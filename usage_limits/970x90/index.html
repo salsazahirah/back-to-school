@@ -181,26 +181,42 @@
         let splitTop = SplitText.create(".split-top", { type: "words", linesClass: "line-text" });
         let splitBottom = SplitText.create(".split-bottom", { type: "words", linesClass: "line-text" });
 
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({
+            onComplete: () => {
+                setTimeout(() => {
+                    loopTl.play();
+                }, 1000);
+            }
+        });
 
         tl
-        .from(splitTop.lines, {
+        .from(splitTop.words, {
             scale: 1.2, opacity: 0, stagger: {
-                amount: 0.8, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
+                amount: 0.4, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
+            }
+        })
+        .from(splitBottom.words, {
+            scale: 1.2, opacity: 0, stagger: {
+                amount: 1, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
             }
         })
         .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.2")
-        .from(splitBottom.lines, {
+        .from(".gratis", {
             scale: 1.2, opacity: 0, stagger: {
                 amount: 0.2, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
             }
         })
         .from(".cta", { duration: 0.3, opacity: 0,scale: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
         .to(".cta", { duration: 0.3, opacity: 1, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
-        .from(".main-img", { duration: 0.3, y: 50, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
         ;
 
         tl.play();
+
+        const loopTl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 3 });
+
+        loopTl
+        .set("#line", { clipPath: "inset(0% 100% 0% 0%)" }) 
+        .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.5");        
 
         const banner = document.getElementById("banner");
         banner.addEventListener("mouseenter", () => {

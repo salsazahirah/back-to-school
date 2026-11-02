@@ -48,6 +48,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            gap: 20px;
         }
         #logo {
             width: 100px;
@@ -59,7 +60,7 @@
             font-size: 32px;
             text-align: center;
             line-height: 0.9;
-            margin: 25px 0;
+            margin1725px 0;
         }
         .sup {
             font-size: 16px;
@@ -85,11 +86,12 @@
         }
         .main-img {
             position: relative;
-            width: 140px;
+            width: 145px;
             height: 120px;
             overflow: hidden;
             background: #000;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
+            margin-left: -10px;
         }
         .fade-img {
             position: absolute;
@@ -134,6 +136,22 @@
             width: 100%;
             height: 100%;
         }
+        .main-img-a {
+            width: 200px;
+        }
+        .main-img-b {
+            position: absolute;
+            top: 28px;
+            width: 125px;
+            left: 10px;
+        }
+        .main-img-c {
+            width: 6px;
+            position: absolute;
+            top: 17px;
+            left: 16px;
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 <body>
@@ -157,7 +175,14 @@
             </div>
         </div>
         <div class="main-img">
-            <img src="assets/main-img.png" alt="">
+            <!-- <img src="assets/main-img.png" alt=""> -->
+            <div class="main-img-a">
+                <img src="assets/main-img-a.png" alt="">
+                <img src="assets/main-img-c.png" alt="" class="main-img-c">
+            </div>
+            <div class="main-img-b">
+                <img src="assets/main-img-b.png" alt="">
+            </div>
             <div class="fade-img"></div>
         </div>
         <div class="cta">
@@ -172,7 +197,13 @@
         let splitTop = SplitText.create(".split-top", { type: "lines", linesClass: "line-text" });
         let splitBottom = SplitText.create(".split-bottom", { type: "lines", linesClass: "line-text" });
 
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({
+            onComplete: () => {
+                setTimeout(() => {
+                    loopTl.play();
+                }, 1000);
+            }
+        });
 
         tl
         .from(splitTop.lines, {
@@ -188,10 +219,30 @@
         })
         .from(".cta", { duration: 0.3, opacity: 0,scale: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
         .to(".cta", { duration: 0.3, opacity: 1, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
-        .from(".main-img", { duration: 0.3, y: 50, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .from(".main-img-a", { duration: 0.3, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .from(".main-img-b", { duration: 0.2, y: -20, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .from(".main-img-c", { duration: 0.2, rotation: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "<")
+        .to(".main-img-b", { duration: 0.2, y: -20, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=2")
+        .to(".main-img-c", { duration: 0.2, rotation: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "<")
+        .to(".main-img-a", { duration: 0.3, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.2")
         ;
 
         tl.play();
+
+        const loopTl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 3 });
+
+        loopTl
+        .set("#line", { clipPath: "inset(0% 100% 0% 0%)" })
+        .set(".main-img-a", { opacity: 0 })
+        .set(".main-img-b", { y: -20, opacity: 0 })
+        .set(".main-img-c", { rotation: 0 })
+        .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.5")
+        .to(".main-img-a", { duration: 0.3, opacity: 1, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .to(".main-img-b", { duration: 0.2, y: 0, opacity: 1, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .to(".main-img-c", { duration: 0.2, rotation: 45, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "<")
+        .to(".main-img-b", { duration: 0.2, y: -20, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=2")
+        .to(".main-img-c", { duration: 0.2, rotation: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "<")
+        .to(".main-img-a", { duration: 0.3, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.2");
 
         const banner = document.getElementById("banner");
         banner.addEventListener("mouseenter", () => {
