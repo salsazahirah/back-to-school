@@ -102,32 +102,6 @@
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
             z-index: 1;
         }
-        .cta {
-            display: flex;
-            align-items: center;
-            z-index: 2;
-            overflow:visible;
-        }
-        .cta::before {
-            content: "";
-            position: absolute;
-            z-index: -1;
-            background: linear-gradient(to right, var(--google-blue), var(--google-green), var(--google-yellow), var(--google-red));
-            border-radius: 20px;
-            filter: blur(10px);
-            inset: -2px -4px;
-            opacity: var(--glow-opacity, 0);
-            transform: translateZ(0);
-        }
-        .cta-text {
-            background-color: #fff;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            padding: 8px 14px;
-            border-radius: 20px;
-            z-index: 2;
-        }
         .link {
             position: absolute;
             top: 0;
@@ -167,28 +141,41 @@
 
         const tl = gsap.timeline();
 
-        tl
-        .from(splitTop.lines, {
+        tl.from(splitTop.lines, {
             scale: 1.2, opacity: 0, stagger: {
                 amount: 0.8, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
             }
         })
-        .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.2")
         .from(splitBottom.lines, {
             scale: 1.2, opacity: 0, stagger: {
                 amount: 0.2, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
+            },
+            onComplete: () => {
+                lineLoopTl.play();
             }
-        })
-        ;
+        });
 
         tl.play();
 
+        const lineLoopTl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 3 });
+        gsap.set("#line", { clipPath: "inset(0% 100% 0% 0%)" });
+
+        lineLoopTl.to("#line", { 
+            duration: 0.5, 
+            clipPath: "inset(0% 0% 0% 0%)", 
+            ease: "cubic-bezier(0.4, 0, 0.2, 1)" 
+        });
+
         const banner = document.getElementById("banner");
+        let isHoverAnimating = false;
+
         banner.addEventListener("mouseenter", () => {
             if (tl.isActive()) return;
             tl.restart();
+            lineLoopTl.restart();
+            if (isHoverAnimating) return;
+            isHoverAnimating = true;
         });
-
         document.querySelector(".link").addEventListener("click", () => {
             window.open("https://gemini.google/id/students/?hl=id", "_blank");
         });

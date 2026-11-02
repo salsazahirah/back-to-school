@@ -124,6 +124,22 @@
             width: 100%;
             height: 100%;
         }
+        .cursor {
+            position: absolute;
+            top: 74px;
+            right: 33px;
+            width: 1px;
+            height: 10px;
+            background: #fff;
+        }
+        .materi-wrap {
+            display: flex;
+            position: absolute;
+            top: 21px;
+            left: 20px;
+            width: 224px;
+            gap: 2px;
+        }
     </style>
 </head>
 <body>
@@ -148,6 +164,14 @@
         </div>
         <div class="main-img">
             <img src="assets/main-img.png" alt="">
+            <div class="cursor"></div>
+            <div class="materi-wrap">
+                <div class="materi materi-1"> <img src="assets/materi-1.png" alt=""> </div>
+                <div class="materi materi-2"> <img src="assets/materi-2.png" alt=""> </div>
+                <div class="materi materi-3"> <img src="assets/materi-3.png" alt=""> </div>
+                <div class="materi materi-4"> <img src="assets/materi-4.png" alt=""> </div>
+                <div class="materi materi-5"> <img src="assets/materi-5.png" alt=""> </div>
+            </div>
         </div>
         <div class="cta">
             <div class="cta-text">Upload tanpa batas</div>
@@ -157,14 +181,18 @@
     <script>
         gsap.registerPlugin(SplitText);
 
-        // Split text into characters for animation
         let splitTop = SplitText.create(".split-top", { type: "lines", linesClass: "line-text" });
         let splitBottom = SplitText.create(".split-bottom", { type: "lines", linesClass: "line-text" });
 
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({
+            onComplete: () => {
+                setTimeout(() => {
+                    loopTl.play();
+                }, 3000);
+            }
+        });
 
-        tl
-        .from(splitTop.lines, {
+        tl.from(splitTop.lines, {
             scale: 1.2, opacity: 0, stagger: {
                 amount: 0.8, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
             }
@@ -175,20 +203,44 @@
                 amount: 0.2, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
             }
         })
-        .from(".cta", { duration: 0.3, opacity: 0,scale: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .from(".cta", { duration: 0.3, opacity: 0, scale: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
         .to(".cta", { duration: 0.3, opacity: 1, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
         .from(".main-img", { duration: 0.3, y: 50, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
-        ;
+        .to(".materi-1", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 })
+        .to(".materi-2", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 })
+        .to(".materi-3", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 })
+        .to(".materi-4", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 })
+        .to(".materi-5", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 });
 
         tl.play();
+
+        const cursorTl = gsap.timeline({ paused: true, repeat: -1, yoyo: true });
+        cursorTl.to(".cursor", { duration: 0.6, opacity: 0, ease: "steps(1)" });
+        cursorTl.play();
+
+        const loopTl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 3 });
+
+        loopTl
+        .set("#line", { clipPath: "inset(0% 100% 0% 0%)" })
+        .set(".materi-1", { scale: 1 })
+        .set(".materi-2", { scale: 1 })
+        .set(".materi-3", { scale: 1 })
+        .set(".materi-4", { scale: 1 })
+        .set(".materi-5", { scale: 1 })
+        .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.5")
+        .to(".materi-1", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 })
+        .to(".materi-2", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 })
+        .to(".materi-3", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 })
+        .to(".materi-4", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 })
+        .to(".materi-5", { duration: 0.3, scale: 1.1, ease: "cubic-bezier(0.4, 0, 0.2, 1)", yoyo: true, repeat: 1 });
 
         const banner = document.getElementById("banner");
         banner.addEventListener("mouseenter", () => {
             gsap.to(".cta", {
-            "--glow-opacity": 1,
-            scale: 1.03,
-            duration: 0.3,
-            overwrite: "auto"
+                "--glow-opacity": 1,
+                scale: 1.03,
+                duration: 0.3,
+                overwrite: "auto"
             });
             gsap.to(".cta", {
                 "--glow-opacity": 0,

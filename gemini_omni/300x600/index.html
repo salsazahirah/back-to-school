@@ -86,9 +86,35 @@
         .main-img {
             position: relative;
             width: 280px;
+            height: 185px;
             overflow: hidden;
             background: #000;
             margin-bottom: 10px;
+        }
+        .main-img img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: stopMotion 4.5s infinite steps(1, end);
+        }
+
+        .main-img img:nth-child(1) { animation-delay: 0s; }
+        .main-img img:nth-child(2) { animation-delay: 0.5s; }
+        .main-img img:nth-child(3) { animation-delay: 1.0s; }
+        .main-img img:nth-child(4) { animation-delay: 1.5s; }
+        .main-img img:nth-child(5) { animation-delay: 2.0s; }
+        .main-img img:nth-child(6) { animation-delay: 2.5s; }
+        .main-img img:nth-child(7) { animation-delay: 3.0s; }
+        .main-img img:nth-child(8) { animation-delay: 3.5s; }
+        .main-img img:nth-child(9) { animation-delay: 4.0s; }
+
+        @keyframes stopMotion {
+            0% { opacity: 1; }
+            11.11% { opacity: 0; }
+            100% { opacity: 0; }
         }
         .cta {
             display: flex;
@@ -147,7 +173,15 @@
             </div>
         </div>
         <div class="main-img">
-            <img src="assets/main-img.png" alt="">
+            <img src="assets/main-img-1.png" alt="">
+            <img src="assets/main-img-2.png" alt="">
+            <img src="assets/main-img-3.png" alt="">
+            <img src="assets/main-img-4.png" alt="">
+            <img src="assets/main-img-5.png" alt="">
+            <img src="assets/main-img-6.png" alt="">
+            <img src="assets/main-img-7.png" alt="">
+            <img src="assets/main-img-8.png" alt="">
+            <img src="assets/main-img-9.png" alt="">
         </div>
         <div class="cta">
             <div class="cta-text">Dapatkan akses Gemini Omni </br> untuk generasi video!</div>
@@ -157,11 +191,16 @@
     <script>
         gsap.registerPlugin(SplitText);
 
-        // Split text into characters for animation
         let splitTop = SplitText.create(".split-top", { type: "lines", linesClass: "line-text" });
         let splitBottom = SplitText.create(".split-bottom", { type: "lines", linesClass: "line-text" });
 
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({
+            onComplete: () => {
+                setTimeout(() => {
+                    loopTl.play();
+                }, 3000);
+            }
+        });
 
         tl
         .from(splitTop.lines, {
@@ -181,6 +220,12 @@
         ;
 
         tl.play();
+
+        const loopTl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 3 });
+
+        loopTl
+        .set("#line", { clipPath: "inset(0% 100% 0% 0%)" })
+        .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.5")
 
         const banner = document.getElementById("banner");
         banner.addEventListener("mouseenter", () => {
