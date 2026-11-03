@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>300x1050 Banner</title>
+    <script src="https://cdn.jsdelivr.net/gh/salsazahirah/assets@main/js/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/salsazahirah/assets@main/js/SplitText.min.js"></script>
+    
+    <style>
+        @font-face {
+            font-family: "Google Sans Flex";
+            src: url("https://cdn.jsdelivr.net/gh/salsazahirah/assets@main/fonts/google-sans-flex-latin-full-normal.woff2") format("woff2");
+            font-weight: 100 1000;
+            font-style: normal;
+        }
+        :root {
+            --google-blue: #4285F4;
+            --google-green: #0F9D58;
+            --google-red: #DB4437;
+            --google-yellow: #F4B400;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Google Sans Flex", sans-serif;
+            font-optical-sizing: auto;
+        }
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+        img {
+            width: 100%;
+        }
+        #banner {
+            width: 300px;
+            height: 1050px;
+            background: #000;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        #logo {
+            width: 180px;
+            margin-left: -10px;
+        }
+        .txt {
+            color: #fff;
+            font-variation-settings: "opsz" 144, "wdth" 47, "wght" 700, "GRAD" 37, "ROND" 0, "slnt" 0;
+            font-size: 60px;
+            text-align: center;
+            line-height: 0.9;
+            margin: 35px 0;
+        }
+        .sup {
+            font-size: 36px;
+            vertical-align: super;
+        }
+        .crossed {
+            position: relative;
+        }
+        .line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 80%;
+            height: 7px;
+            background-color: #E81C53;
+            transform: rotate(-6deg) translate(2px, -2px);
+            border-radius: 7px;
+        }
+        #line {
+            clip-path: inset(0% 100% 0% 0%);
+        }
+        .main-img {
+            position: relative;
+            width: 280px;
+            height: 180px;
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 40px;
+        }
+        .main-img img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: stopMotion 4.5s infinite steps(1, end);
+        }
+        .main-img img:nth-child(1) { animation-delay: 0s; }
+        .main-img img:nth-child(2) { animation-delay: 0.5s; }
+        .main-img img:nth-child(3) { animation-delay: 1.0s; }
+        .main-img img:nth-child(4) { animation-delay: 1.5s; }
+        .main-img img:nth-child(5) { animation-delay: 2.0s; }
+        .main-img img:nth-child(6) { animation-delay: 2.5s; }
+        .main-img img:nth-child(7) { animation-delay: 3.0s; }
+        .main-img img:nth-child(8) { animation-delay: 3.5s; }
+        .main-img img:nth-child(9) { animation-delay: 4.0s; }
+        @keyframes stopMotion {
+            0% { opacity: 1; }
+            11.11% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        .cta {
+            display: flex;
+            align-items: center;
+            z-index: 2;
+            overflow:visible;
+        }
+        .cta::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            background: linear-gradient(to right, var(--google-blue), var(--google-green), var(--google-yellow), var(--google-red));
+            border-radius: 20px;
+            filter: blur(10px);
+            inset: -2px -4px;
+            opacity: var(--glow-opacity, 0);
+            transform: translateZ(0);
+        }
+        .cta-text {
+            background-color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            padding: 8px 24px;
+            border-radius: 30px;
+            z-index: 2;
+            text-align: center;
+        }
+        .link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <div id="logo">
+            <img src="assets/gemini-logo.png" alt="Gemini Logo">
+        </div>
+        <div class="txt">
+            <div class="split-top">
+
+                <div class="line-text">PAKET</div>
+                <div class="line-text">MAHASISWA</div>
+                <div class="line-text">1 TAHUN</div>
+                <div class="line-text crossed" >
+                    <span class="sup">RP</span>900.000
+                    <div id="line" class="line"></div>
+                </div>
+            </div>
+            <div class="split-bottom">
+                <div class="line-text">GRATIS</div>
+            </div>
+        </div>
+        <div class="main-img">
+            <img src="assets/main-img-1.png" alt="">
+            <img src="assets/main-img-2.png" alt="">
+            <img src="assets/main-img-3.png" alt="">
+            <img src="assets/main-img-4.png" alt="">
+            <img src="assets/main-img-5.png" alt="">
+            <img src="assets/main-img-6.png" alt="">
+            <img src="assets/main-img-7.png" alt="">
+            <img src="assets/main-img-8.png" alt="">
+            <img src="assets/main-img-9.png" alt="">
+        </div>
+        <div class="cta">
+            <div class="cta-text">Dapatkan akses Gemini </br> Omni untuk generasi video!</div>
+        </div>
+        <div class="link"></div>
+    </div>
+    <script>
+        gsap.registerPlugin(SplitText);
+
+        // Split text into characters for animation
+        let splitTop = SplitText.create(".split-top", { type: "lines", linesClass: "line-text" });
+        let splitBottom = SplitText.create(".split-bottom", { type: "lines", linesClass: "line-text" });
+
+        const tl = gsap.timeline({
+            onComplete: () => {
+                setTimeout(() => {
+                    loopTl.play();
+                }, 1000);
+            }
+        });
+
+        tl
+        .from(splitTop.lines, {
+            scale: 1.2, opacity: 0, stagger: {
+                amount: 0.8, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
+            }
+        })
+        .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.2")
+        .from(splitBottom.lines, {
+            scale: 1.2, opacity: 0, stagger: {
+                amount: 0.2, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
+            }
+        })
+        .from(".cta", { duration: 0.3, opacity: 0,scale: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .to(".cta", { duration: 0.3, opacity: 1, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .from(".main-img", { duration: 0.3, y: 50, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        ;
+
+        tl.play();
+
+        const loopTl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 3 });
+
+        loopTl
+        .set("#line", { clipPath: "inset(0% 100% 0% 0%)" })
+        .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.5")
+
+        const banner = document.getElementById("banner");
+        banner.addEventListener("mouseenter", () => {
+            gsap.to(".cta", {
+            "--glow-opacity": 1,
+            scale: 1.03,
+            duration: 0.3,
+            overwrite: "auto"
+            });
+            gsap.to(".cta", {
+                "--glow-opacity": 0,
+                scale: 1,
+                duration: 0.5,
+                delay: 0.5,
+                overwrite: "auto"
+            });
+        });
+
+        document.querySelector(".link").addEventListener("click", () => {
+            window.open("https://gemini.google/id/students/?hl=id", "_blank");
+        });
+    </script>
+</body>
+</html>

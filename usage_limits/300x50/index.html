@@ -161,23 +161,6 @@
         .set("#line", { clipPath: "inset(0% 100% 0% 0%)" }) 
         .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.5");
 
-        const banner = document.getElementById("banner");
-        banner.addEventListener("mouseenter", () => {
-            gsap.to(".cta", {
-            "--glow-opacity": 1,
-            scale: 1.03,
-            duration: 0.3,
-            overwrite: "auto"
-            });
-            gsap.to(".cta", {
-                "--glow-opacity": 0,
-                scale: 1,
-                duration: 0.5,
-                delay: 0.5,
-                overwrite: "auto"
-            });
-        });
-
         document.querySelector(".link").addEventListener("click", () => {
             window.open("https://gemini.google/id/students/?hl=id", "_blank");
         });

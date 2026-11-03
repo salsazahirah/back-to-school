@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>970x250 Banner</title>
+    <script src="https://cdn.jsdelivr.net/gh/salsazahirah/assets@main/js/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/salsazahirah/assets@main/js/SplitText.min.js"></script>
+    
+    <style>
+        @font-face {
+            font-family: "Google Sans Flex";
+            src: url("https://cdn.jsdelivr.net/gh/salsazahirah/assets@main/fonts/google-sans-flex-latin-full-normal.woff2") format("woff2");
+            font-weight: 100 1000;
+            font-style: normal;
+        }
+        :root {
+            --google-blue: #4285F4;
+            --google-green: #0F9D58;
+            --google-red: #DB4437;
+            --google-yellow: #F4B400;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Google Sans Flex", sans-serif;
+            font-optical-sizing: auto;
+        }
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
+        img {
+            width: 100%;
+        }
+        #banner {
+            width: 970px;
+            height: 250px;
+            background: #000;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            gap: 40px
+        }
+        #logo {
+            width: 180px;
+            margin-left: -10px;
+        }
+        .txt {
+            color: #fff;
+            font-variation-settings: "opsz" 144, "wdth" 47, "wght" 700, "GRAD" 37, "ROND" 0, "slnt" 0;
+            font-size: 56px;
+            text-align: center;
+            line-height: 0.9;
+            margin: 15px 0 0;
+        }
+        .sup {
+            font-size: 32px;
+            vertical-align: super;
+        }
+        .crossed {
+            position: relative;
+        }
+        .line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 100%;
+            height: 7px;
+            background-color: #E81C53;
+            transform: rotate(-6deg) translate(2px, -2px);
+            border-radius: 7px;
+        }
+        #line {
+            clip-path: inset(0% 100% 0% 0%);
+        }
+        .main-img {
+            position: relative;
+            width: 360px;
+            height: 150px;
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 10px;
+        }
+        .cta {
+            display: flex;
+            align-items: center;
+            z-index: 2;
+            overflow:visible;
+        }
+        .cta::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            background: linear-gradient(to right, var(--google-blue), var(--google-green), var(--google-yellow), var(--google-red));
+            border-radius: 20px;
+            filter: blur(10px);
+            inset: -2px -4px;
+            opacity: var(--glow-opacity, 0);
+            transform: translateZ(0);
+        }
+        .cta-text {
+            background-color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            padding: 8px 14px;
+            border-radius: 20px;
+            z-index: 2;
+        }
+        .link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .split-bottom, .split-bottom-wrap {
+            display: flex;
+            gap: 8px;
+        }
+        .section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-img-text {
+            position: absolute;
+            top: 40px;
+            left: 183px;
+            color: #fff;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 
+                 0 0 20px rgba(255, 255, 255, 0.5);
+                 transform-origin: left bottom;
+        }
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <div class="section">
+            <div id="logo">
+                <img src="assets/gemini-logo.png" alt="Gemini Logo">
+            </div>
+            <div class="txt">
+                <div class="split-top">
+                    <div class="line-text">PAKET MAHASISWA</div>
+                </div>
+                <div class="split-bottom-wrap">
+                    <div class="split-bottom">
+                        <div class="line-text">1 TAHUN</div>
+                        <div class="line-text crossed" >
+                            <span class="sup">RP</span>900.000
+                            <div id="line" class="line"></div>
+                        </div>
+                    </div>
+                    <div class="line-text gratis">GRATIS</div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="main-img">
+                <img src="assets/main-img.png" alt="">
+                <div class="main-img-text">400 GB</div>
+            </div>
+            <div class="cta">
+                <div class="cta-text">Dapatkan akses Cloud Storage hingga 400 GB!</div>
+            </div>
+        </div>
+        <div class="link"></div>
+    </div>
+    <script>
+        gsap.registerPlugin(SplitText);
+        
+        let splitTop = SplitText.create(".split-top", { type: "words", linesClass: "line-text" });
+        let splitBottom = SplitText.create(".split-bottom", { type: "words", linesClass: "line-text" });
+
+        const tl = gsap.timeline({
+            onComplete: () => {
+                setTimeout(() => {
+                    loopTl.play();
+                }, 1000);
+            }
+        });
+
+        tl
+        .from(splitTop.words, {
+            scale: 1.2, opacity: 0, stagger: {
+                amount: 0.4, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
+            }
+        })
+        .from(splitBottom.words, {
+            scale: 1.2, opacity: 0, stagger: {
+                amount: 1, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
+            }
+        })
+        .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.2")
+        .from(".gratis", {
+            scale: 1.2, opacity: 0, stagger: {
+                amount: 0.2, from: "start", ease: "cubic-bezier(0.4, 0, 0.2, 1)"
+            }
+        })
+        .from(".cta", { duration: 0.3, opacity: 0,scale: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .to(".cta", { duration: 0.3, opacity: 1, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        .from(".main-img", { duration: 0.3, y: 50, opacity: 0, ease: "cubic-bezier(0.4, 0, 0.2, 1)" });
+
+        const textTl = gsap.timeline({ paused: true, repeat: -1, yoyo: true });
+        textTl.to(".main-img-text", {
+            scale: 1.1, textShadow: "0 0 20px rgba(255, 255, 255, 1), 0 0 40px rgba(255, 255, 255, 0.9), 0 0 60px rgba(0, 255, 255, 0.8)", duration: 1.5, ease: "cubic-bezier(0.4, 0, 0.2, 1)" })
+        textTl.play();
+
+        tl.play();
+
+        const loopTl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 3 });
+
+        loopTl
+        .set("#line", { clipPath: "inset(0% 100% 0% 0%)" })
+        .to("#line", { duration: 0.5, clipPath: "inset(0% 0% 0% 0%)", ease: "cubic-bezier(0.4, 0, 0.2, 1)" }, "+=0.5");      
+
+        const banner = document.getElementById("banner");
+        banner.addEventListener("mouseenter", () => {
+            gsap.to(".cta", {
+            "--glow-opacity": 1,
+            scale: 1.03,
+            duration: 0.3,
+            overwrite: "auto"
+            });
+            gsap.to(".cta", {
+                "--glow-opacity": 0,
+                scale: 1,
+                duration: 0.5,
+                delay: 0.5,
+                overwrite: "auto"
+            });
+        });
+
+        document.querySelector(".link").addEventListener("click", () => {
+            window.open("https://gemini.google/id/students/?hl=id", "_blank");
+        });
+    </script>
+</body>
+</html>
